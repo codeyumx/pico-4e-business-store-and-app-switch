@@ -46,8 +46,8 @@ sign-in is system-wide: apps check your purchases through it.
 - Seeing and downloading apps you bought on that account
 - The consumer User Center app, opened from Lightning Launcher, shows your
   account, as long as it is switched on (see [After every reboot](#after-every-reboot))
-- Virtual Desktop and other store apps should work through the same sign-in.
-  Not confirmed yet.
+- Virtual Desktop: confirmed. After signing in through the store app, Virtual
+  Desktop could be downloaded from the store.
 
 ## What does not work
 

@@ -76,7 +76,8 @@ echo [4/4] Enabling global apps...
 for %%P in (%GLOBAL%) do call "%~dp0_enable.cmd" %%P
 
 echo.
-echo Done. Reboot the headset. Sign in from the taskbar profile with a regular PICO account.
+echo Done. Reboot the headset, open the PICO Store app and sign in there with a regular PICO account.
+echo The taskbar profile button does not work on a business-edition headset.
 echo If PICO Home does not show the store, open it from Lightning Launcher.
 if defined TO_REMOVE (
   echo To bring a removed business app back:
@@ -89,7 +90,7 @@ rem :describe <apk> - one-line explanation of what an APK is, shown while instal
 :describe
 if /i "%~1"=="store.apk"             echo   %~1 - PICO Store, consumer version: buy and download apps with a regular PICO account.
 if /i "%~1"=="home.apk"              echo   %~1 - PICO Home, consumer version: the normal home screen and app library.
-if /i "%~1"=="VRUserCenter2.apk"     echo   %~1 - PICO User Center, consumer version: the taskbar profile where you sign in with a regular PICO account.
+if /i "%~1"=="VRUserCenter2.apk"     echo   %~1 - PICO User Center, consumer version: shows your PICO account; open it from Lightning Launcher.
 if /i "%~1"=="LightningLauncher.apk" echo   %~1 - Lightning Launcher: third-party app launcher that lists every installed app, a way into the store if PICO Home will not open it.
 if /i "%~1"=="quickshortcut.apk"     echo   %~1 - QuickShortcutMaker: opens hidden screens inside installed apps, such as settings pages, and can pin shortcuts to them.
 exit /b 0
