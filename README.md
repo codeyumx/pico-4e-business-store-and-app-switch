@@ -47,8 +47,9 @@ Instead, everything happens at app level over adb (USB debugging):
   every installed app, and **QuickShortcutMaker**, which opens hidden screens
   inside apps.
 
-You sign in with a regular PICO account through the consumer store. That
-sign-in is system-wide: apps check your purchases through it.
+Sign in with a regular PICO account in the **PICO Store app**, not from the
+taskbar. That sign-in is system-wide: other apps, such as PICO Connect, use
+the same account, and apps check your purchases through it.
 
 ## What works afterwards
 
@@ -56,12 +57,13 @@ sign-in is system-wide: apps check your purchases through it.
 - Seeing and downloading apps you bought on that account
 - The consumer User Center app, opened from Lightning Launcher, shows your
   account, as long as it is switched on (see [After every reboot](#after-every-reboot))
+- PICO Connect uses the account you signed in with in the store
 - Virtual Desktop: confirmed. After signing in through the store app, Virtual
   Desktop could be downloaded from the store.
 
 ## What does not work
 
-- **The profile button on the taskbar (menu bar) does nothing.**
+- **The business account profile on the taskbar (menu bar) is inactive.**
   On a business-edition headset the taskbar only ever opens the *business*
   user center, and that has been removed. It cannot be pointed at the
   consumer user center without changing the edition. Open "User Center"
