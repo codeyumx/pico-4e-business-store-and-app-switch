@@ -6,6 +6,10 @@
 > on your headset is your decision. I am not responsible if you break your
 > headset, lose data or lose access to anything.
 
+**Who should use this:** owners of a PICO 4 Enterprise running the business
+software (such as the business Streaming Assistant) who want the PICO Store,
+store apps such as Virtual Desktop, and the ability to install other APKs.
+
 > [!WARNING]
 > **Firmware.** These scripts only change apps. They never flash firmware.
 > Never flash a firmware file meant for another model or edition, such as a
