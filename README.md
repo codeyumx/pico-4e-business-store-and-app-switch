@@ -21,6 +21,25 @@ store apps such as Virtual Desktop, and the ability to install other APKs.
 > Center, PICO Home, PICO Connect) are the global (international) editions.
 > These steps assume a global PICO account; China-region builds are not covered.
 
+> [!IMPORTANT]
+> **This does not make it a regular PICO 4.** The scripts give you the
+> consumer PICO Store, but the headset is still registered as an enterprise
+> device. Other users report that, because of this, many store apps show as
+> outdated, will not update, or will not install at all. That is decided by
+> PICO's servers, and nothing on the headset can change it. Virtual Desktop
+> did install from the store in my testing; I have not tested the rest of
+> the library.
+>
+> Apps installed directly as APKs (over adb, or from the Files app) do run.
+> So if the store will not install or update an app, you can install its APK
+> instead.
+>
+> Getting the full store library would mean rooting the headset and changing
+> its serial number so that it registers as a consumer PICO 4 or PICO 4 Pro.
+> These scripts do not do that and I do not recommend it: it can brick the
+> headset and void its warranty, and changing a serial number may break PICO's
+> terms or local law.
+
 ## Contents
 
 | Folder | What it holds |
