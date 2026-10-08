@@ -83,7 +83,9 @@ Switch the consumer apps back on, either:
    appears. Developer > Business Settings > System Apps > Customize Library:
    turn **off** Business Suite, Business User Center and Business Store,
    turn **on** Streaming Assistant.
-1. `1. Check USB connection.bat`: checks that the PC sees the headset
+1. `1. Check connection and device info.bat`: checks that Windows and adb
+   see the headset, then shows model, firmware, OEM state, region and the
+   business apps still installed. Read-only; run it any time.
 2. `2. Install PICO Connect.bat`: installs the global PICO Connect APK
    (`Apks/PICOConnect-*.apk`) over Streaming Assistant and switches it on.
    This was done first, by hand, on the tested headset.
@@ -91,9 +93,8 @@ Switch the consumer apps back on, either:
    switches on the consumer apps
 4. `4. Store Enabler.bat`: not needed on the first run, because script 3
    already installs the store. Use it after a reboot (see above).
-5. `5. Device info.bat`: shows model, firmware and business apps
-6. `6. Disable Explore and User Guide.bat`: optional; this also switches
-   PICO Home off
+5. `5. Disable Home and User Guide.bat`: optional; switches off PICO Home,
+   Explore and the User Guide
 
 Every script asks which headset to use and shows its plan before changing
 anything. With several headsets connected, check the serial number.
@@ -112,7 +113,7 @@ apps over adb), with these changes:
 | Business store package | `com.pvr.tobstore` only | Also `com.picoxr.tobstore` (newer firmware, seen on 5.9.9) |
 | APKs installed | Every `.apk` in `Apks\` and `Apks\Pico\` | A fixed list; `nextapp.fx.apk` (a cracked FX File Explorer re-signed by a third party) is skipped |
 | Re-enabling apps | Not handled | `_enable.cmd` turns the consumer apps back on, including system apps the headset switched off |
-| USB drivers | Driver installer script (its driver folder was never shipped) | `1. Check USB connection.bat` checks Windows and adb instead |
+| USB drivers | Driver installer script (its driver folder was never shipped) | `1. Check connection and device info.bat` checks Windows and adb instead |
 | PICO Connect | Not included | `2. Install PICO Connect.bat` installs the global build |
 | Undo | Not shown | Undo command printed at the end |
 
