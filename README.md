@@ -1,5 +1,11 @@
 # PICO 4 Enterprise: business apps → global consumer apps, without root
 
+> [!CAUTION]
+> **Use at your own risk.** Inspect every file carefully before you run it,
+> run the scripts carefully, and have your AI agent read them too. What you run
+> on your headset is your decision. I am not responsible if you break your
+> headset, lose data or lose access to anything.
+
 > [!WARNING]
 > **Firmware.** These scripts only change apps. They never flash firmware.
 > Never flash a firmware file meant for another model or edition, such as a
