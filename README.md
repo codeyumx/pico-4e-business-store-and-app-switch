@@ -147,6 +147,8 @@ Switch the consumer apps back on, either:
    already installs the store. Use it after a reboot (see above).
 5. `5. Disable Home and User Guide.bat`: optional; switches off PICO Home,
    Explore and the User Guide
+6. `6. Undo all changes.bat`: optional; reverses scripts 2 to 5 (see
+   [Undo](#undo))
 
 Every script asks which headset to use and shows its plan before changing
 anything. With several headsets connected, check the serial number.
@@ -167,12 +169,30 @@ apps over adb), with these changes:
 | Re-enabling apps | Not handled | `_enable.cmd` turns the consumer apps back on, including system apps the headset switched off |
 | USB drivers | Driver installer script (its driver folder was never shipped) | `1. Check connection and device info.bat` checks Windows and adb instead |
 | PICO Connect | Not included | `2. Install PICO Connect.bat` installs the global build |
-| Undo | Not shown | Undo command printed at the end |
+| Undo | Not shown | `6. Undo all changes.bat`, and the undo command printed at the end of script 3 |
 
 ## Undo
 
-- One app: `adb -s <serial> shell pm install-existing <package>`
-- Everything: factory reset (Settings > General > Factory reset)
+Run `6. Undo all changes.bat`. It checks what is on the headset and lists
+only what it will change before asking Y/N:
+
+- Brings back the business apps script 3 removed and switches them on
+- Removes the installed updates of PICO Store, User Center, PICO Home and
+  PICO Connect, which brings back the preinstalled versions. PICO Connect goes
+  back to Streaming Assistant. Their data, including the store sign-in, is lost.
+- Switches the consumer store, user center and PICO Home off
+- Uninstalls Lightning Launcher and QuickShortcutMaker
+- Switches Explore and the User Guide back on
+- Deletes `store.apk` from the headset's Download folder
+
+It does not touch apps you installed yourself, Customize Library or the
+developer menu; change those back by hand. Reboot afterwards.
+
+Other ways:
+
+- One business app: `adb -s <serial> shell pm install-existing <package>`
+- Everything, including your own apps and data: factory reset (Settings >
+  General > Factory reset)
 
 ## Install adb first
 
