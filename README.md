@@ -67,8 +67,10 @@ sign-in is system-wide: apps check your purchases through it.
 
 Switch the consumer apps back on, either:
 
-- **From the PC:** run `3. Business to Global.bat` again. It is safe to repeat:
-  it reinstalls the APKs and switches the consumer apps back on.
+- **From the PC, everything:** run `3. Business to Global.bat` again. It is
+  safe to repeat: it reinstalls the APKs and switches the consumer apps back on.
+- **From the PC, store only:** run `4. Store Enabler.bat`. It reinstalls
+  `store.apk` and switches the store on, and touches nothing else.
 - **In the headset:** copy `store.apk` and `VRUserCenter2.apk` from the `Apks`
   folder to the headset's Download folder once, then after each reboot install
   them again from the Files app. Reinstalling the store this way switched
@@ -87,7 +89,8 @@ Switch the consumer apps back on, either:
    This was done first, by hand, on the tested headset.
 3. `3. Business to Global.bat`: removes business apps, installs and
    switches on the consumer apps
-4. `4. Store Enabler.bat`: reinstalls and switches on only the store
+4. `4. Store Enabler.bat`: not needed on the first run, because script 3
+   already installs the store. Use it after a reboot (see above).
 5. `5. Device info.bat`: shows model, firmware and business apps
 6. `6. Disable Explore and User Guide.bat`: optional; this also switches
    PICO Home off
