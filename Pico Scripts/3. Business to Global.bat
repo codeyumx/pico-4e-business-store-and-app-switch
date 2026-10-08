@@ -1,7 +1,7 @@
 @echo off
 rem Switches one Pico headset from the business (ToB) apps to the global apps.
 rem Run it, pick the headset, check the plan, confirm. Optional: pass a serial
-rem to preselect a headset:  "2. Business to Global.bat" <serial>
+rem to preselect a headset:  "3. Business to Global.bat" <serial>
 rem Every adb command uses -s <serial>, so other connected devices are never touched.
 rem Business apps are removed with "pm uninstall -k --user 0", which keeps the
 rem system copy; the undo command is printed at the end.

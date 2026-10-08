@@ -1,4 +1,4 @@
-# PICO 4 Enterprise: business apps → consumer apps, without root
+# PICO 4 Enterprise: business apps → global consumer apps, without root
 
 > [!WARNING]
 > **Firmware.** These scripts only change apps. They never flash firmware.
@@ -6,12 +6,17 @@
 > consumer PICO 4 or PICO 4 Pro update, onto a PICO 4 Enterprise. Only use
 > firmware confirmed for your exact model. Wrong firmware can brick the headset.
 
+> [!NOTE]
+> **Global editions only.** The consumer APKs in `Apks/` (PICO Store, User
+> Center, PICO Home, PICO Connect) are the global (international) editions.
+> These steps assume a global PICO account; China-region builds are not covered.
+
 ## Contents
 
 | Folder | What it holds |
 | --- | --- |
 | `Pico Scripts/` | The `.bat` scripts you run, plus shared helpers (`_adb.cmd`, `_pico.cmd`, `_enable.cmd`) |
-| `Apks/` | The APKs the scripts install |
+| `Apks/` | The APKs the scripts install (global editions) |
 
 ## How this works
 
@@ -23,8 +28,11 @@ Instead, everything happens at app level over adb (USB debugging):
 
 - Business apps are removed for the current user (`pm uninstall -k --user 0`);
   the originals stay in the system image, so this can be undone.
-- The consumer apps (store, user center, PICO Home) are installed and
+- The global consumer apps (store, user center, PICO Home) are installed and
   switched on.
+- **PICO Connect**, the consumer build of Streaming Assistant (used for PC
+  streaming), is installed as an update over the preinstalled business copy.
+  Both use the package `com.picovr.picostreamassistant`.
 - Helper apps are installed: **Lightning Launcher**, an app launcher that lists
   every installed app, and **QuickShortcutMaker**, which opens hidden screens
   inside apps.
@@ -53,13 +61,13 @@ sign-in is system-wide: apps check your purchases through it.
   consumer apps to switch off at startup. See below.
 - **Business features are gone:** Business Settings, Business Suite, Business
   Store, business activation. "Customize Library" lives in Business
-  Settings, so do the developer-menu step *before* running script 2.
+  Settings, so do the developer-menu step *before* running script 3.
 
 ## After every reboot
 
 Switch the consumer apps back on, either:
 
-- **From the PC:** run `2. Business to Global.bat` again. It is safe to repeat:
+- **From the PC:** run `3. Business to Global.bat` again. It is safe to repeat:
   it reinstalls the APKs and switches the consumer apps back on.
 - **In the headset:** copy `store.apk` and `VRUserCenter2.apk` from the `Apks`
   folder to the headset's Download folder once, then after each reboot install
@@ -74,11 +82,14 @@ Switch the consumer apps back on, either:
    turn **off** Business Suite, Business User Center and Business Store,
    turn **on** Streaming Assistant.
 1. `1. Check USB connection.bat`: checks that the PC sees the headset
-2. `2. Business to Global.bat`: removes business apps, installs and
+2. `2. Install PICO Connect.bat`: installs the global PICO Connect APK
+   (`Apks/PICOConnect-*.apk`) over Streaming Assistant and switches it on.
+   This was done first, by hand, on the tested headset.
+3. `3. Business to Global.bat`: removes business apps, installs and
    switches on the consumer apps
-3. `3. Store Enabler.bat`: reinstalls and switches on only the store
-4. `4. Device info.bat`: shows model, firmware and business apps
-5. `5. Disable Explore and User Guide.bat`: optional; this also switches
+4. `4. Store Enabler.bat`: reinstalls and switches on only the store
+5. `5. Device info.bat`: shows model, firmware and business apps
+6. `6. Disable Explore and User Guide.bat`: optional; this also switches
    PICO Home off
 
 Every script asks which headset to use and shows its plan before changing
@@ -99,6 +110,7 @@ apps over adb), with these changes:
 | APKs installed | Every `.apk` in `Apks\` and `Apks\Pico\` | A fixed list; `nextapp.fx.apk` (a cracked FX File Explorer re-signed by a third party) is skipped |
 | Re-enabling apps | Not handled | `_enable.cmd` turns the consumer apps back on, including system apps the headset switched off |
 | USB drivers | Driver installer script (its driver folder was never shipped) | `1. Check USB connection.bat` checks Windows and adb instead |
+| PICO Connect | Not included | `2. Install PICO Connect.bat` installs the global build |
 | Undo | Not shown | Undo command printed at the end |
 
 ## Undo
