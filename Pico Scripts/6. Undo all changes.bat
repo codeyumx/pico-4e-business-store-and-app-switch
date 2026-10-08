@@ -6,7 +6,7 @@ rem   PICO Connect (script 2), which brings back the preinstalled versions. Thei
 rem   including the store sign-in, is lost. PICO Connect goes back to Streaming Assistant;
 rem - switches the consumer store, user center and PICO Home off;
 rem - uninstalls Lightning Launcher and QuickShortcutMaker (script 3);
-rem - switches Explore and the User Guide back on (script 5);
+rem - switches Explore and the User Guide (script 5) and com.picovr.init.overlay (script 3) back on;
 rem - deletes store.apk from the headset's Download folder (scripts 3, 4).
 rem Only what is found on the headset is listed in the plan. Settings changed by hand,
 rem such as Customize Library or the developer menu, are not touched.
@@ -24,6 +24,8 @@ rem Lightning Launcher and QuickShortcutMaker.
 set "HELPERS=com.threethan.launcher com.sika524.android.quickshortcut"
 rem Explore and User Guide.
 set "SCRIPT5=com.picovr.activitycenter com.picovr.guide"
+rem Startup app switched off by script 3.
+set "INIT_OVERLAY=com.picovr.init.overlay"
 
 echo.
 echo Checking what the scripts changed...
@@ -52,6 +54,8 @@ for %%P in (%SCRIPT5%) do (
   call :state %%P
   if "!STATE!"=="off" set "TO_ENABLE=!TO_ENABLE! %%P"
 )
+call :state %INIT_OVERLAY%
+if "!STATE!"=="off" set "TO_ENABLE=!TO_ENABLE! %INIT_OVERLAY%"
 set "STORE_FILE="
 for /f %%F in ('call %ADB% shell "[ -f /sdcard/Download/store.apk ] && echo yes" ^<nul') do set "STORE_FILE=%%F"
 

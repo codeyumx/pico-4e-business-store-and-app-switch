@@ -23,6 +23,10 @@ set "GLOBAL=com.picovr.vrusercenter com.pvr.home com.picovr.store"
 
 rem APKs from ..\Apks to install. nextapp.fx.apk is left out on purpose: it is a
 rem cracked FX File Explorer re-signed by a third party.
+rem Startup app that switches the consumer store, user center and PICO Home off at
+rem every boot (list: /system/etc/pvrprovision/disablepackageslist_default.xml).
+set "INIT_OVERLAY=com.picovr.init.overlay"
+
 set "APK_LIST=store.apk home.apk VRUserCenter2.apk LightningLauncher.apk quickshortcut.apk"
 
 set "TO_REMOVE="
@@ -39,6 +43,7 @@ echo   2. Restore global apps: %GLOBAL%
 echo   3. Install APKs from %APKS%: %APK_LIST%
 echo   4. Enable global apps
 echo   5. Copy store.apk to the headset's Download folder, if it is not there yet
+echo   6. Switch off %INIT_OVERLAY%, so the consumer apps stay on after a reboot
 echo.
 echo   These scripts only change apps. They never flash firmware.
 echo   WARNING: never flash a firmware file meant for another model or edition,
@@ -49,21 +54,21 @@ choice /c YN /m "Apply these changes"
 if errorlevel 2 goto end
 
 echo.
-echo [1/5] Removing business apps...
+echo [1/6] Removing business apps...
 for %%P in (%TO_REMOVE%) do (
   echo   %%P
   %ADB% shell pm uninstall -k --user 0 %%P
 )
 
 echo.
-echo [2/5] Restoring global apps...
+echo [2/6] Restoring global apps...
 for %%P in (%GLOBAL%) do (
   echo   %%P
   %ADB% shell pm install-existing %%P
 )
 
 echo.
-echo [3/5] Installing APKs...
+echo [3/6] Installing APKs...
 for %%A in (%APK_LIST%) do (
   if exist "%APKS%\%%A" (
     call :describe %%A
@@ -74,12 +79,16 @@ for %%A in (%APK_LIST%) do (
 )
 
 echo.
-echo [4/5] Enabling global apps...
+echo [4/6] Enabling global apps...
 for %%P in (%GLOBAL%) do call "%~dp0_enable.cmd" %%P
 
 echo.
-echo [5/5] Copying store.apk to the headset...
+echo [5/6] Copying store.apk to the headset...
 if exist "%APKS%\store.apk" (call "%~dp0_copy_store.cmd" "%APKS%\store.apk") else (echo   store.apk: file not found, skipped)
+
+echo.
+echo [6/6] Switching off the startup app that turns the consumer apps off...
+%ADB% shell pm disable-user --user 0 %INIT_OVERLAY%
 
 echo.
 echo Done. Reboot the headset, open the PICO Store app and sign in there with a regular PICO account.

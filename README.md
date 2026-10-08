@@ -59,6 +59,8 @@ Instead, everything happens at app level over adb (USB debugging):
   --user 0`); the originals stay in the system image, so this can be undone.
 - The global consumer apps are installed and switched on.
 - Business Settings is kept, so Customize Library stays available.
+- The startup app `com.picovr.init.overlay` is switched off, so the consumer
+  apps stay on after a reboot.
 
 ### Every app the scripts touch
 
@@ -80,6 +82,7 @@ Instead, everything happens at app level over adb (USB debugging):
 | QuickShortcutMaker | from `quickshortcut.apk` | 3 | Installed; opens hidden screens inside apps |
 | Explore (activity center) | `com.picovr.activitycenter` | 5 | Switched off |
 | User Guide | `com.picovr.guide` | 5 | Switched off |
+| Startup app (PxrInitSceneOverlay) | `com.picovr.init.overlay` | 3, 6 | Switched off by 3, so the consumer apps are not switched off at boot; switched back on by 6 |
 
 `Apks/nextapp.fx.apk` is in the folder but no script installs it: it is a
 cracked FX File Explorer re-signed by a third party.
@@ -87,6 +90,17 @@ cracked FX File Explorer re-signed by a third party.
 Sign in with a regular PICO account in the **PICO Store app**, not from the
 taskbar. That sign-in is system-wide: other apps, such as PICO Connect, use
 the same account, and apps check your purchases through it.
+
+### Opening the store
+
+The PICO Store may not appear in the app tray (app library), even when it is
+installed and on. Open **Lightning Launcher**, find "Store" in its list and
+launch it from there. The same goes for User Center.
+
+If an app you installed does not show in the app tray, check Customize
+Library: Settings > General > About, tap the software version until
+"Developer" appears, then Developer > Business Settings > System Apps >
+Customize Library, and make sure the app is listed and turned on there.
 
 ## What works afterwards
 
@@ -97,7 +111,7 @@ the same account, and apps check your purchases through it.
 - Virtual Desktop: confirmed. After signing in through the store app, Virtual
   Desktop could be downloaded from the store.
 - The consumer User Center app, opened from Lightning Launcher, shows your
-  account while it is switched on (see [After every reboot](#after-every-reboot))
+  account
 - Business Settings and its Customize Library stay available
 
 ## What does not work
@@ -107,26 +121,32 @@ the same account, and apps check your purchases through it.
   user center, which script 3 removes. It cannot be pointed at the consumer
   user center without changing the edition. Sign in through the store app,
   and open "User Center" from Lightning Launcher.
-- **After every reboot** the system switches the consumer store, user center
-  and PICO Home off again. The business edition has a built-in list of
-  consumer apps to switch off at startup. See below.
+- **The store and User Center may be missing from the app tray.** Open them
+  from Lightning Launcher (see [Opening the store](#opening-the-store)).
 - **Removed business features:** Business Store, Business User Center,
   business home, business activation and the enterprise assistant (see the
   table above).
 
 ## After every reboot
 
-Switch the consumer apps back on, either:
+At startup the business edition switches off a built-in list of consumer
+apps (`/system/etc/pvrprovision/disablepackageslist_default.xml`, edition
+`TOB`), including the store, User Center and PICO Home. The startup app that
+does this, `com.picovr.init.overlay`, is switched off by script 3. In testing
+(one reboot on firmware 5.9.9), the store and User Center then stayed on.
+
+If they are switched off anyway, for example after a firmware update,
+switch them back on:
 
 - **From the PC, everything:** run `3. Business to Global.bat` again. It is
-  safe to repeat: it reinstalls the APKs and switches the consumer apps back on.
+  safe to repeat.
 - **From the PC, store only:** run `4. Store Enabler.bat`. It reinstalls
   `store.apk`, switches the store on, and makes sure the in-headset copy below
   is there. It does not touch any other app.
 - **In the headset, no PC:** scripts 3 and 4 copy `store.apk` to the headset's
-  Download folder (skipped if it is already there). After a reboot, open
-  Files, go to Download, tap `store.apk` and install it. Reinstalling the
-  store this way switches it back on.
+  Download folder (skipped if it is already there). Open Files, go to
+  Download, tap `store.apk` and install it. Reinstalling the store this way
+  switches it back on. Then open it from Lightning Launcher.
 
 ## Order
 
@@ -142,9 +162,11 @@ Switch the consumer apps back on, either:
    (`Apks/PICOConnect-*.apk`) over Streaming Assistant and switches it on.
    This was done first, by hand, on the tested headset.
 3. `3. Business to Global.bat`: removes business apps, installs and
-   switches on the consumer apps
+   switches on the consumer apps, and switches off the startup app that
+   turns them off at boot
 4. `4. Store Enabler.bat`: not needed on the first run, because script 3
-   already installs the store. Use it after a reboot (see above).
+   already installs the store. Use it if the store is switched off again
+   (see [After every reboot](#after-every-reboot)).
 5. `5. Disable Home and User Guide.bat`: optional; switches off PICO Home,
    Explore and the User Guide
 6. `6. Undo all changes.bat`: optional; reverses scripts 2 to 5 (see
