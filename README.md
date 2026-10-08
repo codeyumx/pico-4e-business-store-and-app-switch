@@ -36,16 +36,34 @@ change; these scripts do not touch it, and do not change the serial number.
 
 Instead, everything happens at app level over adb (USB debugging):
 
-- Business apps are removed for the current user (`pm uninstall -k --user 0`);
-  the originals stay in the system image, so this can be undone.
-- The global consumer apps (store, user center, PICO Home) are installed and
-  switched on.
-- **PICO Connect**, the consumer build of Streaming Assistant (used for PC
-  streaming), is installed as an update over the preinstalled business copy.
-  Both use the package `com.picovr.picostreamassistant`.
-- Helper apps are installed: **Lightning Launcher**, an app launcher that lists
-  every installed app, and **QuickShortcutMaker**, which opens hidden screens
-  inside apps.
+- Some business apps are removed for the current user (`pm uninstall -k
+  --user 0`); the originals stay in the system image, so this can be undone.
+- The global consumer apps are installed and switched on.
+- Business Settings is kept, so Customize Library stays available.
+
+### Every app the scripts touch
+
+| App | Package | Script | What happens |
+| --- | --- | --- | --- |
+| Business activation | `com.pvr.tobactivate` | 3 | Removed for user 0 |
+| Business User Center | `com.picovr.tobvrusercenter` | 3 | Removed for user 0 |
+| Business home | `com.pvr.tobhome` | 3 | Removed for user 0 |
+| Business Store (older firmware) | `com.pvr.tobstore` | 3 | Removed for user 0 |
+| Business Store (newer firmware, seen on 5.9.9) | `com.picoxr.tobstore` | 3 | Removed for user 0 |
+| Enterprise assistant | `com.picovr.enterpriseassistant` | 3 | Removed for user 0 |
+| Business Settings | `com.pvr.tobservice` | none | **Kept**; holds Customize Library |
+| Business launcher, MDM, business user service | `com.picovrtob.vrlauncher`, `com.picoxr.tobmdm`, `com.bytedance.pico.tob.userservice` | none | Kept; effect of removing them is unknown |
+| PICO Store (global) | `com.picovr.store` | 3, 4 | `store.apk` installed and switched on; also copied to the headset's Download folder |
+| PICO User Center (global) | `com.picovr.vrusercenter` | 3 | `VRUserCenter2.apk` installed and switched on |
+| PICO Home (global) | `com.pvr.home` | 3, 5 | `home.apk` installed and switched on by 3; switched off by 5 |
+| PICO Connect (global; replaces Streaming Assistant) | `com.picovr.picostreamassistant` | 2 | `PICOConnect-*.apk` installed as an update over the business copy and switched on |
+| Lightning Launcher | from `LightningLauncher.apk` | 3 | Installed; lists every installed app |
+| QuickShortcutMaker | from `quickshortcut.apk` | 3 | Installed; opens hidden screens inside apps |
+| Explore (activity center) | `com.picovr.activitycenter` | 5 | Switched off |
+| User Guide | `com.picovr.guide` | 5 | Switched off |
+
+`Apks/nextapp.fx.apk` is in the folder but no script installs it: it is a
+cracked FX File Explorer re-signed by a third party.
 
 Sign in with a regular PICO account in the **PICO Store app**, not from the
 taskbar. That sign-in is system-wide: other apps, such as PICO Connect, use
@@ -53,27 +71,28 @@ the same account, and apps check your purchases through it.
 
 ## What works afterwards
 
-- Signing in to the consumer PICO store with a regular account
+- Signing in with a regular PICO account in the PICO Store app
 - Seeing and downloading apps you bought on that account
-- The consumer User Center app, opened from Lightning Launcher, shows your
-  account, as long as it is switched on (see [After every reboot](#after-every-reboot))
 - PICO Connect uses the account you signed in with in the store
 - Virtual Desktop: confirmed. After signing in through the store app, Virtual
   Desktop could be downloaded from the store.
+- The consumer User Center app, opened from Lightning Launcher, shows your
+  account while it is switched on (see [After every reboot](#after-every-reboot))
+- Business Settings and its Customize Library stay available
 
 ## What does not work
 
 - **The business account profile on the taskbar (menu bar) is inactive.**
   On a business-edition headset the taskbar only ever opens the *business*
-  user center, and that has been removed. It cannot be pointed at the
-  consumer user center without changing the edition. Open "User Center"
-  from Lightning Launcher instead.
+  user center, which script 3 removes. It cannot be pointed at the consumer
+  user center without changing the edition. Sign in through the store app,
+  and open "User Center" from Lightning Launcher.
 - **After every reboot** the system switches the consumer store, user center
   and PICO Home off again. The business edition has a built-in list of
   consumer apps to switch off at startup. See below.
-- **Business features are gone:** Business Settings, Business Suite, Business
-  Store, business activation. "Customize Library" lives in Business
-  Settings, so do the developer-menu step *before* running script 3.
+- **Removed business features:** Business Store, Business User Center,
+  business home, business activation and the enterprise assistant (see the
+  table above).
 
 ## After every reboot
 

@@ -13,9 +13,10 @@ for %%I in ("%~dp0..\Apks") do set "APKS=%%~fI"
 
 rem Business apps to remove. Names that are not installed are skipped.
 rem com.picoxr.tobstore is the business store's name on newer firmware (seen on 5.9.9).
-rem Not removed on purpose, effect unknown: com.picovrtob.vrlauncher, com.picoxr.tobmdm,
-rem com.bytedance.pico.tob.userservice. Add them here if you need to.
-set "BUSINESS=com.pvr.tobactivate com.picovr.tobvrusercenter com.pvr.tobhome com.pvr.tobstore com.picoxr.tobstore com.pvr.tobservice com.picovr.enterpriseassistant"
+rem Not removed on purpose: com.pvr.tobservice (Business Settings, which holds
+rem Customize Library). Effect unknown, so also kept: com.picovrtob.vrlauncher,
+rem com.picoxr.tobmdm, com.bytedance.pico.tob.userservice. Add them here if you need to.
+set "BUSINESS=com.pvr.tobactivate com.picovr.tobvrusercenter com.pvr.tobhome com.pvr.tobstore com.picoxr.tobstore com.picovr.enterpriseassistant"
 
 rem Global system apps to restore and enable.
 set "GLOBAL=com.picovr.vrusercenter com.pvr.home com.picovr.store"
