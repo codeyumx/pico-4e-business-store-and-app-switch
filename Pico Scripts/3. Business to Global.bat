@@ -37,6 +37,7 @@ if not defined TO_REMOVE echo   1. Remove business apps: none installed, nothing
 echo   2. Restore global apps: %GLOBAL%
 echo   3. Install APKs from %APKS%: %APK_LIST%
 echo   4. Enable global apps
+echo   5. Copy store.apk to the headset's Download folder, if it is not there yet
 echo.
 echo   These scripts only change apps. They never flash firmware.
 echo   WARNING: never flash a firmware file meant for another model or edition,
@@ -47,21 +48,21 @@ choice /c YN /m "Apply these changes"
 if errorlevel 2 goto end
 
 echo.
-echo [1/4] Removing business apps...
+echo [1/5] Removing business apps...
 for %%P in (%TO_REMOVE%) do (
   echo   %%P
   %ADB% shell pm uninstall -k --user 0 %%P
 )
 
 echo.
-echo [2/4] Restoring global apps...
+echo [2/5] Restoring global apps...
 for %%P in (%GLOBAL%) do (
   echo   %%P
   %ADB% shell pm install-existing %%P
 )
 
 echo.
-echo [3/4] Installing APKs...
+echo [3/5] Installing APKs...
 for %%A in (%APK_LIST%) do (
   if exist "%APKS%\%%A" (
     call :describe %%A
@@ -72,8 +73,12 @@ for %%A in (%APK_LIST%) do (
 )
 
 echo.
-echo [4/4] Enabling global apps...
+echo [4/5] Enabling global apps...
 for %%P in (%GLOBAL%) do call "%~dp0_enable.cmd" %%P
+
+echo.
+echo [5/5] Copying store.apk to the headset...
+if exist "%APKS%\store.apk" (call "%~dp0_copy_store.cmd" "%APKS%\store.apk") else (echo   store.apk: file not found, skipped)
 
 echo.
 echo Done. Reboot the headset, open the PICO Store app and sign in there with a regular PICO account.

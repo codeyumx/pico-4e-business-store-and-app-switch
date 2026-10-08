@@ -25,7 +25,7 @@ store apps such as Virtual Desktop, and the ability to install other APKs.
 
 | Folder | What it holds |
 | --- | --- |
-| `Pico Scripts/` | The `.bat` scripts you run, plus shared helpers (`_adb.cmd`, `_pico.cmd`, `_enable.cmd`) |
+| `Pico Scripts/` | The `.bat` scripts you run, plus shared helpers (`_adb.cmd`, `_pico.cmd`, `_enable.cmd`, `_copy_store.cmd`) |
 | `Apks/` | The APKs the scripts install (global editions) |
 
 ## How this works
@@ -82,11 +82,12 @@ Switch the consumer apps back on, either:
 - **From the PC, everything:** run `3. Business to Global.bat` again. It is
   safe to repeat: it reinstalls the APKs and switches the consumer apps back on.
 - **From the PC, store only:** run `4. Store Enabler.bat`. It reinstalls
-  `store.apk` and switches the store on, and touches nothing else.
-- **In the headset:** copy `store.apk` and `VRUserCenter2.apk` from the `Apks`
-  folder to the headset's Download folder once, then after each reboot install
-  them again from the Files app. Reinstalling the store this way switched
-  it back on in testing; the user center should behave the same.
+  `store.apk`, switches the store on, and makes sure the in-headset copy below
+  is there. It does not touch any other app.
+- **In the headset, no PC:** scripts 3 and 4 copy `store.apk` to the headset's
+  Download folder (skipped if it is already there). After a reboot, open
+  Files, go to Download, tap `store.apk` and install it. Reinstalling the
+  store this way switches it back on.
 
 ## Order
 
