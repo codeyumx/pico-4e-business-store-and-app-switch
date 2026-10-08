@@ -27,8 +27,8 @@ store apps such as Virtual Desktop, and the ability to install other APKs.
 > device. Other users report that, because of this, many store apps show as
 > outdated, will not update, or will not install at all. That is decided by
 > PICO's servers, and nothing on the headset can change it. Virtual Desktop
-> did install from the store in my testing; I have not tested the rest of
-> the library.
+> did install from the store in my testing, and PICO Connect works; I have
+> not tested the rest of the library.
 >
 > Apps installed directly as APKs (over adb, or from the Files app) do run.
 > So if the store will not install or update an app, you can install its APK
@@ -92,7 +92,8 @@ the same account, and apps check your purchases through it.
 
 - Signing in with a regular PICO account in the PICO Store app
 - Seeing and downloading apps you bought on that account
-- PICO Connect uses the account you signed in with in the store
+- PICO Connect: tested and works, signed in with the store account, over
+  both Wi-Fi and USB
 - Virtual Desktop: confirmed. After signing in through the store app, Virtual
   Desktop could be downloaded from the store.
 - The consumer User Center app, opened from Lightning Launcher, shows your
